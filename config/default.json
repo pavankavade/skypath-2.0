@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://skypath:skypath2019@skypath-bmvhw.mongodb.net/test?retryWrites=true&w=majority"
+}
