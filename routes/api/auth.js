@@ -1,4 +1,4 @@
-const express = require();
+const express = require('express');
 const router = express.Router();
 
 // @route  GET api/auth
