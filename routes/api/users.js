@@ -4,6 +4,8 @@ const gravatar = require('gravatar');
 const { check, validationResult } = require('express-validator');
 const User = require('../../Models/users');
 const bcrypt = require('bcrypt');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 // @route  POST api/users
 // @desc   Register User
 // @access Public
@@ -49,7 +51,20 @@ router.post('/', [
 
     await user.save();
     //Return JsonWebToken
-    res.send('user registered');
+    const payload = {
+      user: {
+        id: user.id
+      }
+    }
+    jwt.sign(
+      payload,
+      config.get('jwtSecret'),
+      { expiresIn: 36000 },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
   }
   catch (err) {
     console.error(err.message);
